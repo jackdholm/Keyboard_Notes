@@ -1,0 +1,34 @@
+﻿<Window x:Class="KB_Notes.Views.ConfirmWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KB_Notes.Views"
+        xmlns:s="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d"
+        Title="Delete Tab" Height="100" Width="400" ResizeMode="NoResize">
+    <Window.InputBindings>
+        <KeyBinding Key="N" Command="{Binding Finish}">
+            <KeyBinding.CommandParameter>
+                <s:Boolean>
+                    False
+                </s:Boolean>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="Y" Command="{Binding Finish}">
+            <KeyBinding.CommandParameter>
+                <s:Boolean>
+                    True
+                </s:Boolean>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+    </Window.InputBindings>
+    <Grid>
+
+
+        <Grid.InputBindings>
+
+        </Grid.InputBindings>
+        <Label x:Name="label" Content="{Binding ConfirmText}" HorizontalContentAlignment="Center" HorizontalAlignment="Center"  Margin="0,10,0,10" Width="380" RenderTransformOrigin="0.502,0.954" FontSize="14"/>
+    </Grid>
+</Window>

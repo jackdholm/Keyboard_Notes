@@ -1,0 +1,112 @@
+﻿<Window x:Class="KB_Notes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KB_Notes"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        md:DialogServiceViews.IsRegistered="True"
+        mc:Ignorable="d"
+        Title="Keyboard Notes" Height="450" Width="800" MinWidth="800" MinHeight="450" FontSize="12">
+    <Window.InputBindings>
+    </Window.InputBindings>
+    <Window.Resources>
+        <Style x:Key="gridHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed"/>
+        </Style>
+        <Style x:Key="itemStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="local:ListViewScroll.ScrollToSelection" Value="True"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="Margin" Value="0.5"/>
+            <Setter Property="Margin" Value="1"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <TextBox local:SetFocusExtension.IsFocused="{Binding TextFocused}" AcceptsReturn="True" x:Name="textBox" Margin="80,10,80,0" Text="{Binding Path=CurrentNoteText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Height="65">
+            <TextBox.InputBindings>
+                <KeyBinding Gesture="SHIFT+Return" Command="{Binding NewNote}"/>
+                <KeyBinding Key="Esc" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=FocusTabs}" />
+            </TextBox.InputBindings>
+        </TextBox>
+        <!--<Button Command="{Binding NewNote}" x:Name="button" Content="Create" Margin="725,27,5,0" VerticalAlignment="Top" Height="32"/>-->
+        <TabControl local:SetFocusExtension.IsFocused="{Binding TabsFocused}" SelectedIndex="{Binding CurrentTab}" x:Name="Tabs" Margin="5,80,5,5" ItemsSource="{Binding Tabs}">
+            <TabControl.InputBindings>
+                <KeyBinding Key="H" Command="{Binding ScrollLeft}"/>
+                <KeyBinding Key="L" Command="{Binding ScrollRight}"/>
+                <KeyBinding Key="k" Command="{Binding ScrollUp}"/>
+                <KeyBinding Key="J" Command="{Binding ScrollDown}"/>
+                <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=FocusText}" />
+                <KeyBinding Key="Delete" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=DataContext.DeleteNote}"/>
+                <KeyBinding Gesture="SHIFT+Delete" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=DataContext.DeleteTab}"/>
+                <KeyBinding Gesture="Ctrl+N" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=DataContext.NewTab}"/>
+            </TabControl.InputBindings>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ListView  ItemsSource="{Binding Notes}" SelectedItem="{Binding Selected}" 
+                              SelectedIndex="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=DataContext.SelectedIndex}"  SelectionMode="Single"  ItemContainerStyle="{StaticResource itemStyle}" x:Name="listview" Margin="5,5,5,5" BorderThickness="1,1,1,1">
+                        <ListView.InputBindings>
+                            <KeyBinding Gesture="SHIFT+Delete" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=DeleteNote}"/>
+                        </ListView.InputBindings>
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource gridHeaderStyle}">
+                                <GridViewColumn Width="500">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <local:FormattedTextBlock PlainText="{Binding Text}" Margin="1,3,1,3" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Date}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+        <!--<TextBlock x:Name="fff" HorizontalAlignment="Left" Margin="23,42,0,0" Text="{Binding TabTest}" TextWrapping="Wrap" VerticalAlignment="Top"/>-->
+        <!--<ListView SelectedIndex="{Binding SelectedIndex}" ItemContainerStyle="{StaticResource itemStyle}" x:Name="listview" Margin="10,99,10,10" ItemsSource="{Binding CurrentList.Notes}" BorderThickness="1,1,1,1">
+            <ListView.InputBindings>
+                <KeyBinding Key="J" Command="{Binding ScrollDown}"/>
+            </ListView.InputBindings>
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource gridHeaderStyle}">
+                    <GridViewColumn  Width="500">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <local:FormattedTextBlock PlainText="{Binding Text}" Margin="1,3,1,3" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Date}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+        <!--<ListView x:Name="listview" Margin="10,86,10,10" ItemsSource="{Binding TestList.Notes}" BorderThickness="1,1,1,1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Text}" FontSize="16"/>
+                        <TextBlock x:Name="blah" Text="jiofew"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListView>-->
+
+
+
+    </Grid>
+</Window>
