@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KB_Notes.Views"
+        xmlns:local="clr-namespace:KB_Notes"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="450" Width="400" ResizeMode="NoResize">
+        Title="Controls" Height="350" Width="350" ResizeMode="NoResize">
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding Finish}"/>
+        <KeyBinding Gesture="Ctrl+H" Command="{Binding Finish}"/>
+    </Window.InputBindings>
     <Grid>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,114,0,0" Text="TextBlock" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+        <local:FormattedTextBlock PlainText="{Binding HelpText}" x:Name="helpText" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KB_Notes
+namespace KB_Notes.Views
 {
     // Code behind file used for setting focus due to issues with attached properties not updating the textbox
     public partial class MainWindow : Window
@@ -23,7 +23,7 @@ namespace KB_Notes
 
         public MainWindow()
         {
-            DataContext = new NoteListViewModel();
+            DataContext = new ViewModels.NoteListViewModel();
             InitializeComponent();
             FocusTabs = new Commands.FocusCommand(focusTabs);
             FocusText = new Commands.FocusCommand(focusText);

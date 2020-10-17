@@ -9,12 +9,15 @@ namespace KB_Notes
     {
         public Type Locate(INotifyPropertyChanged viewModel)
         {
-            if (viewModel.GetType() == typeof(ViewModels.NewTabViewModel))
+            Type t = viewModel.GetType();
+            if (t == typeof(ViewModels.NewTabViewModel))
                 return typeof(Views.NewTabWindow);
-            else if (viewModel.GetType() == typeof(NoteListViewModel))
-                return typeof(MainWindow);
-            else if (viewModel.GetType() == typeof(ViewModels.ConfirmViewModel))
+            else if (t == typeof(ViewModels.NoteListViewModel))
+                return typeof(Views.MainWindow);
+            else if (t == typeof(ViewModels.ConfirmViewModel))
                 return typeof(Views.ConfirmWindow);
+            else if (t == typeof(ViewModels.HelpViewModel))
+                return typeof(Views.HelpWindow);
             else
                 return null;
         }

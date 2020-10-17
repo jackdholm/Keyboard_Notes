@@ -9,9 +9,9 @@ namespace KB_Notes.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private NoteListViewModel _vm;
+        private ViewModels.NoteListViewModel _vm;
 
-        public NewNoteCommand(NoteListViewModel vm)
+        public NewNoteCommand(ViewModels.NoteListViewModel vm)
         {
             _vm = vm;
         }

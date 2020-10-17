@@ -5,26 +5,14 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace KB_Notes
+namespace KB_Notes.ViewModels
 {
-    class TabItem
-    {
-        public TabItem(string h, string b)
-        {
-            Header = h;
-            Body = b;
-        }
-        public string Header { get; set; }
-        public string Body { get; set; }
-    }
     class NoteListViewModel : ViewModelBase
     {
         public ObservableCollection<NoteList> Tabs { get; set; }
         private int _currentTab;
         private string _currentNoteText;
-        private NoteList _noteList;
         private Note _selected;
-        private int _selectedIndex;
         private bool _tabsFocused;
         private bool _textFocused;
         private MvvmDialogs.DialogService _dialogService;
@@ -33,9 +21,6 @@ namespace KB_Notes
         {
             Tabs = SavedData.Open();
             SavedData.Save(Tabs);
-            //_noteList = new NoteList("List1");
-            //Tabs.Add(_noteList);
-            //Tabs.Add(new NoteList("List2"));
             NewNote = new Commands.NewNoteCommand(this);
             CurrentNoteText = "test";
             CurrentTab = 0;
@@ -51,7 +36,7 @@ namespace KB_Notes
             NewTab = new Commands.GenericCommand(createTab);
             _dialogService = new MvvmDialogs.DialogService(null, new Locator(), null);
             DeleteTab = new Commands.GenericCommand(deleteTab);
-
+            OpenHelp = new Commands.GenericCommand(openHelp);
         }
         public int CurrentTab
         {
@@ -201,6 +186,11 @@ namespace KB_Notes
                 }
             }
                 
+        }
+        public ICommand OpenHelp { get; set; }
+        private void openHelp()
+        {
+            _dialogService.ShowDialog(this, new ViewModels.HelpViewModel(_dialogService));
         }
     }
 }
