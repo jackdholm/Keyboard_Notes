@@ -178,6 +178,7 @@ namespace KB_Notes.ViewModels
                 ViewModels.ConfirmViewModel vm = new ViewModels.ConfirmViewModel(_dialogService, CurrentList.Name);
                 if (_dialogService.ShowDialog(this, vm) == true)
                 {
+                    SelectedIndex = -1;
                     Tabs.RemoveAt(temp);
                     CurrentTab = temp > 0 ? temp - 1 : 0;
                     if (Tabs.Count == 0)
