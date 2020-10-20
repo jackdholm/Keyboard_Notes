@@ -6,8 +6,9 @@ using System.Text;
 
 namespace KB_Notes
 {
-    class NoteList
+    class NoteList : ViewModelBase
     {
+        private bool _append;
         private string _name;
         private ObservableCollection<Note> _notes;
         private int _currentIndex;
@@ -37,7 +38,10 @@ namespace KB_Notes
         public void Add(string s)
         {
             Note n = new Note(s);
-            Notes.Add(n);
+            if (_append)
+                _notes.Add(n);
+            else
+                _notes.Insert(0, n);
         }
         public void Remove(int i)
         {
@@ -50,6 +54,23 @@ namespace KB_Notes
         public ObservableCollection<Note> Notes
         {
             get { return _notes; }
+        }
+        public bool Append 
+        { 
+            get { return _append; }
+            set
+            {
+                _append = value;
+            }
+        }
+        public void Reverse()
+        {
+            _append = !_append;
+            ObservableCollection<Note> newList = new ObservableCollection<Note>();
+            foreach (Note n in _notes)
+                newList.Insert(0, n);
+            _notes = newList;
+            OnPropertyChanged("Notes");
         }
     }
 }

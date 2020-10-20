@@ -36,6 +36,7 @@
                 <KeyBinding Key="k" Command="{Binding ScrollUp}"/>
                 <KeyBinding Key="J" Command="{Binding ScrollDown}"/>
                 <KeyBinding Gesture="Ctrl+H" Command="{Binding OpenHelp}"/>
+                <KeyBinding Gesture="Ctrl+O" Command="{Binding Reverse}"/>
                 <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
                              Path=FocusText}" />
                 <KeyBinding Key="Delete" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
@@ -53,7 +54,7 @@
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ListView  ItemsSource="{Binding Notes}" SelectedItem="{Binding Selected}" 
+                    <ListView ItemsSource="{Binding Notes}" SelectedItem="{Binding Selected}" 
                               SelectedIndex="{Binding RelativeSource={RelativeSource AncestorType=Window},
                              Path=DataContext.SelectedIndex}"  SelectionMode="Single"  ItemContainerStyle="{StaticResource itemStyle}" x:Name="listview" Margin="5,5,5,5" BorderThickness="1,1,1,1">
                         <ListView.InputBindings>

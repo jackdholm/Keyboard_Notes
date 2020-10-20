@@ -22,7 +22,6 @@ namespace KB_Notes.ViewModels
             Tabs = SavedData.Open();
             SavedData.Save(Tabs);
             NewNote = new Commands.NewNoteCommand(this);
-            CurrentNoteText = "test";
             CurrentTab = 0;
             SelectedIndex = -1;
             ScrollUp = new Commands.ScrollCommand(verticalScroll, -1);
@@ -37,6 +36,7 @@ namespace KB_Notes.ViewModels
             _dialogService = new MvvmDialogs.DialogService(null, new Locator(), null);
             DeleteTab = new Commands.GenericCommand(deleteTab);
             OpenHelp = new Commands.GenericCommand(openHelp);
+            Reverse = new Commands.GenericCommand(reverseNotes);
         }
         public int CurrentTab
         {
@@ -191,6 +191,12 @@ namespace KB_Notes.ViewModels
         private void openHelp()
         {
             _dialogService.ShowDialog(this, new ViewModels.HelpViewModel(_dialogService));
+        }
+        public ICommand Reverse { get; set; }
+        private void reverseNotes()
+        {
+            CurrentList.Reverse();
+            SavedData.Save(Tabs);
         }
     }
 }
