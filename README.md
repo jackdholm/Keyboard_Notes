@@ -13,3 +13,4 @@ Change Order: Ctrl-O
 ##### When Creating notes
 Title Text: #T
 Add Note: Shift+Enter
+Shift+H/J/K/L: Navigation

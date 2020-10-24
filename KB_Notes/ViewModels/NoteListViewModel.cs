@@ -16,7 +16,7 @@ namespace KB_Notes.ViewModels
         private bool _tabsFocused;
         private bool _textFocused;
         private MvvmDialogs.DialogService _dialogService;
-
+        
         public NoteListViewModel()
         {
             Tabs = SavedData.Open();

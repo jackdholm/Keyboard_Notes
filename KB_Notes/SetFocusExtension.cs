@@ -5,6 +5,7 @@ using System.Windows;
 
 namespace KB_Notes
 {
+    // Not currently used
     public static class SetFocusExtension
     {
         public static bool GetIsFocused(DependencyObject obj)

@@ -20,13 +20,20 @@ namespace KB_Notes.Views
     {
         public ICommand FocusTabs { get; set; }
         public ICommand FocusText { get; set; }
-
+        public ICommand MoveLeft { get; set; }
+        public ICommand MoveRight { get; set; }
+        public ICommand MoveDown { get; set; }
+        public ICommand MoveUp { get; set; }
         public MainWindow()
         {
             DataContext = new ViewModels.NoteListViewModel();
             InitializeComponent();
             FocusTabs = new Commands.FocusCommand(focusTabs);
             FocusText = new Commands.FocusCommand(focusText);
+            MoveLeft = new Commands.ScrollCommand(horizontalScroll, -1);
+            MoveRight = new Commands.ScrollCommand(horizontalScroll, 1);
+            MoveUp = new Commands.ScrollCommand(verticalScroll, 1);
+            MoveDown = new Commands.ScrollCommand(verticalScroll, -1);
         }
 
         private void focusTabs()
@@ -36,6 +43,20 @@ namespace KB_Notes.Views
         private void focusText()
         {
             textBox.Focus();
+        }
+        private void horizontalScroll(int direction)
+        {
+            if (direction < 0)
+                EditingCommands.MoveLeftByWord.Execute(null, textBox);
+            else
+                EditingCommands.MoveRightByWord.Execute(null, textBox);
+        }
+        private void verticalScroll(int direction)
+        {
+            if (direction < 0)
+                EditingCommands.MoveDownByLine.Execute(null, textBox);
+            else
+                EditingCommands.MoveUpByLine.Execute(null, textBox);
         }
     }
 }
