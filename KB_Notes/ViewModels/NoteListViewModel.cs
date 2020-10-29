@@ -116,6 +116,8 @@ namespace KB_Notes.ViewModels
         }
         public void CreateNote()
         {
+            if (_currentNoteText == null)
+                _currentNoteText = "";  
             CurrentList.Add(_currentNoteText);
             CurrentNoteText = "";
             SavedData.Save(Tabs);
