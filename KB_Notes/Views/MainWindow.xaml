@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KB_Notes"
+        xmlns:ext="clr-namespace:KB_Notes.Extensions"
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
@@ -13,7 +14,7 @@
             <Setter Property="Visibility" Value="Collapsed"/>
         </Style>
         <Style x:Key="itemStyle" TargetType="{x:Type ListViewItem}">
-            <Setter Property="local:ListViewScroll.ScrollToSelection" Value="True"/>
+            <Setter Property="ext:ListViewScroll.ScrollToSelection" Value="True"/>
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="BorderThickness" Value="0.5"/>
             <Setter Property="Margin" Value="0.5"/>
@@ -37,7 +38,7 @@
                              Path=MoveUp}"/>
             </TextBox.InputBindings>
         </TextBox>
-        <TabControl local:SetFocusExtension.IsFocused="{Binding TabsFocused}" SelectedIndex="{Binding CurrentTab}" x:Name="Tabs" Margin="5,80,5,5" ItemsSource="{Binding Tabs}">
+        <TabControl ext:SetFocusExtension.IsFocused="{Binding TabsFocused}" SelectedIndex="{Binding CurrentTab}" x:Name="Tabs" Margin="5,80,5,5" ItemsSource="{Binding Tabs}">
             <TabControl.InputBindings>
                 <KeyBinding Key="H" Command="{Binding ScrollLeft}"/>
                 <KeyBinding Key="L" Command="{Binding ScrollRight}"/>
@@ -74,7 +75,7 @@
                                 <GridViewColumn Width="500">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <local:FormattedTextBlock PlainText="{Binding Text}" Margin="1,3,1,3" TextWrapping="Wrap"/>
+                                            <ext:FormattedTextBlock PlainText="{Binding Text}" Margin="1,3,1,3" TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

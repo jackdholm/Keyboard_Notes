@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 
-namespace KB_Notes
+namespace KB_Notes.Extensions
 {
     // Not currently used
     public static class SetFocusExtension

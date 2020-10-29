@@ -34,13 +34,13 @@ namespace KB_Notes.ViewModels
 
         public NoteListViewModel()
         {
-            Tabs = SavedData.Open();
-            SavedData.Save(Tabs);
+            Tabs = Utilities.SavedData.Open();
+            Utilities.SavedData.Save(Tabs);
             NewNote = new Commands.NewNoteCommand(this);
             CurrentTab = 0;
             SelectedIndex = -1;
             TabsFocused = true; // Unused
-            _dialogService = new MvvmDialogs.DialogService(null, new Locator(), null);
+            _dialogService = new MvvmDialogs.DialogService(null, new Utilities.Locator(), null);
             ScrollUp = new Commands.ScrollCommand(verticalScroll, -1);
             ScrollDown = new Commands.ScrollCommand(verticalScroll, 1);
             ScrollLeft = new Commands.ScrollCommand(horizontalScroll, -1);
@@ -132,7 +132,7 @@ namespace KB_Notes.ViewModels
                 _currentNoteText = "";  
             CurrentList.Add(_currentNoteText);
             CurrentNoteText = "";
-            SavedData.Save(Tabs);
+            Utilities.SavedData.Save(Tabs);
         }
         private void verticalScroll(int direction)
         {
@@ -164,7 +164,7 @@ namespace KB_Notes.ViewModels
             {
                 CurrentList.Remove(temp);
                 SelectedIndex = temp > 0 ? temp - 1 : 0;
-                SavedData.Save(Tabs);
+                Utilities.SavedData.Save(Tabs);
             }
         }
         private void createTab()
@@ -173,7 +173,7 @@ namespace KB_Notes.ViewModels
             if (_dialogService.ShowDialog(this, vm) == true)
             {
                 Tabs.Add(new NoteList(vm.CurrentText));
-                SavedData.Save(Tabs);
+                Utilities.SavedData.Save(Tabs);
             }
         }
         private void deleteTab()
@@ -189,7 +189,7 @@ namespace KB_Notes.ViewModels
                     CurrentTab = temp > 0 ? temp - 1 : 0;
                     if (Tabs.Count == 0)
                         Tabs.Add(new NoteList("List1"));
-                    SavedData.Save(Tabs);
+                    Utilities.SavedData.Save(Tabs);
                 }
             }
                 
@@ -201,7 +201,7 @@ namespace KB_Notes.ViewModels
         private void reverseNotes()
         {
             CurrentList.Reverse();
-            SavedData.Save(Tabs);
+            Utilities.SavedData.Save(Tabs);
         }
     }
 }

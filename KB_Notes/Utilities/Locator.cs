@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace KB_Notes
+namespace KB_Notes.Utilities
 {
     class Locator : MvvmDialogs.DialogTypeLocators.IDialogTypeLocator
     {

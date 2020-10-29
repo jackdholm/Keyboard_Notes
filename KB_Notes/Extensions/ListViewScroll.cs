@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace KB_Notes
+namespace KB_Notes.Extensions
 {
     public static class ListViewScroll
     {

@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
-namespace KB_Notes
+namespace KB_Notes.Extensions
 {
     class FormattedTextBlock : TextBlock
     {

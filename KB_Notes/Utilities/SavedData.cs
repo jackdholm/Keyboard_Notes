@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 
-namespace KB_Notes
+namespace KB_Notes.Utilities
 {
     static class SavedData
     {
