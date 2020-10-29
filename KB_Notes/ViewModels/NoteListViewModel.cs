@@ -9,14 +9,29 @@ namespace KB_Notes.ViewModels
 {
     class NoteListViewModel : ViewModelBase
     {
-        public ObservableCollection<NoteList> Tabs { get; set; }
         private int _currentTab;
         private string _currentNoteText;
         private Note _selected;
         private bool _tabsFocused;
         private bool _textFocused;
-        private MvvmDialogs.DialogService _dialogService;
-        
+        private readonly MvvmDialogs.DialogService _dialogService;
+
+        public ObservableCollection<NoteList> Tabs { get; set; }
+        #region Commands
+        public ICommand NewNote { get; set; }
+        public ICommand ResetFocus { get; set; }
+        public ICommand RemoveFocus { get; set; }
+        public ICommand ScrollUp { get; set; }
+        public ICommand ScrollDown { get; set; }
+        public ICommand ScrollLeft { get; set; }
+        public ICommand ScrollRight { get; set; }
+        public ICommand DeleteNote { get; set; }
+        public ICommand NewTab { get; set; }
+        public ICommand DeleteTab { get; set; }
+        public ICommand OpenHelp { get; set; }
+        public ICommand Reverse { get; set; }
+        #endregion
+
         public NoteListViewModel()
         {
             Tabs = SavedData.Open();
@@ -24,19 +39,19 @@ namespace KB_Notes.ViewModels
             NewNote = new Commands.NewNoteCommand(this);
             CurrentTab = 0;
             SelectedIndex = -1;
+            TabsFocused = true; // Unused
+            _dialogService = new MvvmDialogs.DialogService(null, new Locator(), null);
             ScrollUp = new Commands.ScrollCommand(verticalScroll, -1);
             ScrollDown = new Commands.ScrollCommand(verticalScroll, 1);
             ScrollLeft = new Commands.ScrollCommand(horizontalScroll, -1);
             ScrollRight = new Commands.ScrollCommand(horizontalScroll, 1);
-            TabsFocused = true;
             ResetFocus = new Commands.SetPropertyCommand(setFocus, true);
             RemoveFocus = new Commands.SetPropertyCommand(setFocus, false);
             DeleteNote = new Commands.GenericCommand(deleteNote);
             NewTab = new Commands.GenericCommand(createTab);
-            _dialogService = new MvvmDialogs.DialogService(null, new Locator(), null);
             DeleteTab = new Commands.GenericCommand(deleteTab);
             OpenHelp = new Commands.GenericCommand(openHelp);
-            Reverse = new Commands.GenericCommand(reverseNotes);
+            Reverse = new Commands.GenericCommand(reverseNotes);       
         }
         public int CurrentTab
         {
@@ -70,9 +85,6 @@ namespace KB_Notes.ViewModels
             get;
             set;
         }
-        public ICommand NewNote { get; set; }
-        public ICommand ResetFocus { get; set; }
-        public ICommand RemoveFocus { get; set; }
         public string IndexString
         {
             get { return SelectedIndex.ToString(); }
@@ -122,11 +134,6 @@ namespace KB_Notes.ViewModels
             CurrentNoteText = "";
             SavedData.Save(Tabs);
         }
-        public ICommand ScrollUp { get; set; }
-        public ICommand ScrollDown { get; set; }
-        public ICommand ScrollLeft { get; set; }
-        public ICommand ScrollRight { get; set; }
-
         private void verticalScroll(int direction)
         {
             int newIndex = SelectedIndex + direction;
@@ -150,7 +157,6 @@ namespace KB_Notes.ViewModels
             TextFocused = !focused;
             TabsFocused = focused;
         }
-        public ICommand DeleteNote { get; set; }
         private void deleteNote()
         {
             int temp = SelectedIndex;
@@ -161,7 +167,6 @@ namespace KB_Notes.ViewModels
                 SavedData.Save(Tabs);
             }
         }
-        public ICommand NewTab { get; set; }
         private void createTab()
         {
             ViewModels.NewTabViewModel vm = new ViewModels.NewTabViewModel(_dialogService);
@@ -171,7 +176,6 @@ namespace KB_Notes.ViewModels
                 SavedData.Save(Tabs);
             }
         }
-        public ICommand DeleteTab { get; set; }
         private void deleteTab()
         {
             int temp = CurrentTab;
@@ -190,12 +194,10 @@ namespace KB_Notes.ViewModels
             }
                 
         }
-        public ICommand OpenHelp { get; set; }
         private void openHelp()
         {
             _dialogService.ShowDialog(this, new ViewModels.HelpViewModel(_dialogService));
         }
-        public ICommand Reverse { get; set; }
         private void reverseNotes()
         {
             CurrentList.Reverse();
