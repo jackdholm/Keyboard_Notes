@@ -26,8 +26,6 @@ namespace KB_Notes.Views
         public ICommand MoveUp { get; set; }
         public MainWindow()
         {
-            DataContext = new ViewModels.NoteListViewModel();
-            InitializeComponent();
             FocusTabs = new Commands.FocusCommand(focusTabs);
             FocusText = new Commands.FocusCommand(focusText);
             MoveLeft = new Commands.ScrollCommand(horizontalScroll, -1);
