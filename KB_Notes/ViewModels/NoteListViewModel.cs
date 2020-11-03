@@ -30,6 +30,7 @@ namespace KB_Notes.ViewModels
         public ICommand DeleteTab { get; set; }
         public ICommand OpenHelp { get; set; }
         public ICommand Reverse { get; set; }
+        public ICommand Exit { get; set; }
         #endregion
 
         public NoteListViewModel()
@@ -51,7 +52,8 @@ namespace KB_Notes.ViewModels
             NewTab = new Commands.GenericCommand(createTab);
             DeleteTab = new Commands.GenericCommand(deleteTab);
             OpenHelp = new Commands.GenericCommand(openHelp);
-            Reverse = new Commands.GenericCommand(reverseNotes);       
+            Reverse = new Commands.GenericCommand(reverseNotes);
+            Exit = new Commands.CloseCommand(exitApplication);
         }
         public int CurrentTab
         {
@@ -202,6 +204,10 @@ namespace KB_Notes.ViewModels
         {
             CurrentList.Reverse();
             Utilities.SavedData.Save(Tabs);
+        }
+        private void exitApplication(Utilities.IClosable window)
+        {
+            window.Close();
         }
     }
 }

@@ -8,6 +8,7 @@
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
+        x:Name="Main_Window"
         Title="Keyboard Notes" Height="450" Width="800" MinWidth="800" MinHeight="450" FontSize="12">
     <Window.Resources>
         <Style x:Key="gridHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
@@ -40,6 +41,7 @@
         </TextBox>
         <TabControl ext:SetFocusExtension.IsFocused="{Binding TabsFocused}" SelectedIndex="{Binding CurrentTab}" x:Name="Tabs" Margin="5,80,5,5" ItemsSource="{Binding Tabs}">
             <TabControl.InputBindings>
+                <KeyBinding Gesture="Shift+Esc" Command="{Binding Exit}" CommandParameter="{Binding ElementName=Main_Window}"/>
                 <KeyBinding Key="H" Command="{Binding ScrollLeft}"/>
                 <KeyBinding Key="L" Command="{Binding ScrollRight}"/>
                 <KeyBinding Key="k" Command="{Binding ScrollUp}"/>

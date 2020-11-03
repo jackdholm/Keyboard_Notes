@@ -5,13 +5,13 @@ using System.Windows.Input;
 
 namespace KB_Notes.Commands
 {
-    class BoolCommand : ICommand
+    class CloseCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        public delegate void BoolDelegate(bool value);
-        private BoolDelegate _delegate;
+        public delegate void CloseDelegate(Utilities.IClosable window);
+        private CloseDelegate _delegate;
 
-        public BoolCommand(BoolDelegate del)
+        public CloseCommand(CloseDelegate del)
         {
             _delegate = del;
         }
@@ -22,7 +22,7 @@ namespace KB_Notes.Commands
 
         public void Execute(object parameter)
         {
-            _delegate((bool)parameter);
+            _delegate((Utilities.IClosable)parameter);
         }
     }
 }

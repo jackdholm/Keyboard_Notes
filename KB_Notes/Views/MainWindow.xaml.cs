@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace KB_Notes.Views
 {
     // Code behind file used for setting focus due to issues with attached properties not updating the textbox
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, Utilities.IClosable
     {
         public ICommand FocusTabs { get; set; }
         public ICommand FocusText { get; set; }
