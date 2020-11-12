@@ -72,6 +72,16 @@ namespace KB_Notes
             _notes = newList;
             OnPropertyChanged("Notes");
         }
+        public void ChangeNote(int i, string text)
+        {
+            ObservableCollection<Note> newList = new ObservableCollection<Note>(_notes);
+            Note n = new Note(text);
+            n.Date = _notes[i].Date;
+            newList[i] = n;
+            _notes = newList;
+            OnPropertyChanged("Notes");
+            OnPropertyChanged("Text");
+        }
     }
 }
     

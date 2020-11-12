@@ -18,6 +18,8 @@ namespace KB_Notes.Utilities
                 return typeof(Views.ConfirmWindow);
             else if (t == typeof(ViewModels.HelpViewModel))
                 return typeof(Views.HelpWindow);
+            else if (t == typeof(ViewModels.EditViewModel))
+                return typeof(Views.EditWindow);
             else
                 return null;
         }

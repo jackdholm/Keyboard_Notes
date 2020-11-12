@@ -1,0 +1,38 @@
+﻿<Window x:Class="KB_Notes.Views.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KB_Notes.Views"
+        xmlns:s="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d"
+        Title="Edit Note" ResizeMode="NoResize" Height="300" Width="600">
+    <Grid>
+        <TextBox AcceptsReturn="True" x:Name="textBox" Margin="10,0,10,0" Text="{Binding Path=CurrentText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Center" Height="264">
+            <TextBox.InputBindings>
+                <KeyBinding Gesture="SHIFT+Return" Command="{Binding Finish}">
+                    <KeyBinding.CommandParameter>
+                        <s:Boolean>
+                            True
+                        </s:Boolean>
+                    </KeyBinding.CommandParameter>
+                </KeyBinding>
+                <KeyBinding Key="Esc" Command="{Binding Finish}">
+                    <KeyBinding.CommandParameter>
+                        <s:Boolean>
+                            False
+                        </s:Boolean>
+                    </KeyBinding.CommandParameter>
+                </KeyBinding>
+                <KeyBinding Gesture="Ctrl+H" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=MoveLeft}"/>
+                <KeyBinding Gesture="Ctrl+L" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=MoveRight}"/>
+                <KeyBinding Gesture="Ctrl+J" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=MoveDown}"/>
+                <KeyBinding Gesture="Ctrl+K" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=MoveUp}"/>
+            </TextBox.InputBindings>
+        </TextBox>
+    </Grid>
+</Window>

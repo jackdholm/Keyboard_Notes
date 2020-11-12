@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ext="clr-namespace:KB_Notes.Extensions"
         mc:Ignorable="d"
-        Title="Controls" Height="350" Width="350" ResizeMode="NoResize">
+        Title="Controls" Height="350" Width="370" ResizeMode="NoResize">
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding Finish}"/>
         <KeyBinding Gesture="Ctrl+Q" Command="{Binding Finish}"/>

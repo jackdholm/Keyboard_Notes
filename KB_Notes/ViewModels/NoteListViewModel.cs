@@ -31,6 +31,7 @@ namespace KB_Notes.ViewModels
         public ICommand OpenHelp { get; set; }
         public ICommand Reverse { get; set; }
         public ICommand Exit { get; set; }
+        public ICommand EditNote { get; set; }
         #endregion
 
         public NoteListViewModel()
@@ -54,6 +55,7 @@ namespace KB_Notes.ViewModels
             OpenHelp = new Commands.GenericCommand(openHelp);
             Reverse = new Commands.GenericCommand(reverseNotes);
             Exit = new Commands.CloseCommand(exitApplication);
+            EditNote = new Commands.GenericCommand(openEdit);
         }
         public int CurrentTab
         {
@@ -93,12 +95,7 @@ namespace KB_Notes.ViewModels
         }
         public Note Selected
         {
-            get { return _selected; }
-            set
-            {
-                _selected = value;
-                OnPropertyChanged("Selected");
-            }
+            get { return CurrentList.Notes[SelectedIndex]; }
         }
         public int SelectedIndex
         {
@@ -204,6 +201,15 @@ namespace KB_Notes.ViewModels
         {
             CurrentList.Reverse();
             Utilities.SavedData.Save(Tabs);
+        }
+        private void openEdit()
+        {
+            if (SelectedIndex >= 0)
+            {
+                _dialogService.ShowDialog(this, new ViewModels.EditViewModel(_dialogService, Selected));
+                CurrentList.ChangeNote(SelectedIndex, Selected.Text);
+                Utilities.SavedData.Save(Tabs);
+            }
         }
         private void exitApplication(Utilities.IClosable window)
         {

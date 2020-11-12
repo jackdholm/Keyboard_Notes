@@ -48,6 +48,7 @@
                 <KeyBinding Key="J" Command="{Binding ScrollDown}"/>
                 <KeyBinding Gesture="Ctrl+Q" Command="{Binding OpenHelp}"/>
                 <KeyBinding Gesture="Ctrl+O" Command="{Binding Reverse}"/>
+                <KeyBinding Key="E" Command="{Binding EditNote}"/>
                 <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
                              Path=FocusText}" />
                 <KeyBinding Key="Delete" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
