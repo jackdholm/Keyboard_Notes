@@ -17,6 +17,7 @@ namespace KB_Notes.Views
         public NewTabWindow()
         {
             InitializeComponent();
+            newTabTextBox.Focus();
         }
 
     }

@@ -10,12 +10,13 @@ namespace KB_Notes.ViewModels
     {
         private string _text;
         private IDialogService _dialogService;
+        private bool _createTab = false;
 
         public NewTabViewModel(IDialogService dialogService)
         {
             _text = "";
             _dialogService = dialogService;
-            Finish = new Commands.GenericCommand(finish);
+            Finish = new Commands.BoolCommand(finish);
         }
 
         public string CurrentText
@@ -30,10 +31,11 @@ namespace KB_Notes.ViewModels
 
         public ICommand Finish { get; set; }
 
-        public bool? DialogResult { get { return _text.Length > 0 ; } }
+        public bool? DialogResult { get { return _createTab && _text.Length > 0 ; } }
 
-        private void finish()
+        private void finish(bool createTab)
         {
+            _createTab = createTab;
             _dialogService.Close(this);
         }
     }

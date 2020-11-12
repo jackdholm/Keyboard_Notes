@@ -5,14 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KB_Notes.Views"
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:s="clr-namespace:System;assembly=System.Runtime"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
         Title="New Tab" ResizeMode="NoResize" Height="100" Width="300">
-
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding Finish}">
+            <KeyBinding.CommandParameter>
+                <s:Boolean>
+                    False
+                </s:Boolean>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <TextBox MaxLength="32" Text="{Binding CurrentText}" x:Name="newTabTextBox" TextWrapping="Wrap" VerticalAlignment="Center" Margin="75,0,15,0">
             <TextBox.InputBindings>
-                <KeyBinding Key="Return" Command="{Binding Finish}"/>
+                <KeyBinding Key="Return" Command="{Binding Finish}">
+                    <KeyBinding.CommandParameter>
+                        <s:Boolean>
+                            True
+                        </s:Boolean>
+                    </KeyBinding.CommandParameter>
+                </KeyBinding>
             </TextBox.InputBindings>
         </TextBox>
         <Label x:Name="tabNameLabel" VerticalContentAlignment="Top" Content="Tab Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Margin="5,0,0,0"/>
