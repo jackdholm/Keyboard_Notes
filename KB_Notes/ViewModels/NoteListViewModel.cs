@@ -14,7 +14,11 @@ namespace KB_Notes.ViewModels
         private Note _selected;
         private bool _tabsFocused;
         private bool _textFocused;
+        private double _textSize;
         private readonly MvvmDialogs.DialogService _dialogService;
+        private const int TEXT_SIZE_DEFAULT = 12;
+        private const int TEXT_SIZE_MAX = 36;
+        private const int TEXT_SIZE_MIN = 8;
 
         public ObservableCollection<NoteList> Tabs { get; set; }
         #region Commands
@@ -32,6 +36,7 @@ namespace KB_Notes.ViewModels
         public ICommand Reverse { get; set; }
         public ICommand Exit { get; set; }
         public ICommand EditNote { get; set; }
+        public ICommand ChangeTextSize { get; set; }
         #endregion
 
         public NoteListViewModel()
@@ -39,6 +44,7 @@ namespace KB_Notes.ViewModels
             Tabs = Utilities.SavedData.Open();
             Utilities.SavedData.Save(Tabs);
             NewNote = new Commands.NewNoteCommand(this);
+            TextSize = TEXT_SIZE_DEFAULT;
             CurrentTab = 0;
             SelectedIndex = -1;
             TabsFocused = true; // Unused
@@ -56,6 +62,7 @@ namespace KB_Notes.ViewModels
             Reverse = new Commands.GenericCommand(reverseNotes);
             Exit = new Commands.CloseCommand(exitApplication);
             EditNote = new Commands.GenericCommand(openEdit);
+            ChangeTextSize = new Commands.BoolCommand(textSize);
         }
         public int CurrentTab
         {
@@ -84,10 +91,14 @@ namespace KB_Notes.ViewModels
                 OnPropertyChanged("CurrentNoteText");
             }
         }
-        public static int TextSize
+        public double TextSize
         {
-            get;
-            set;
+            get { return _textSize; }
+            set
+            {
+                _textSize = value;
+                OnPropertyChanged("TextSize");
+            }
         }
         public string IndexString
         {
@@ -214,6 +225,18 @@ namespace KB_Notes.ViewModels
         private void exitApplication(Utilities.IClosable window)
         {
             window.Close();
+        }
+        private void textSize(bool increase)
+        {
+            double temp = increase ? _textSize + 2 : _textSize - 2;
+            if (temp > TEXT_SIZE_MAX)
+                temp = TEXT_SIZE_MAX;
+            else if (temp < TEXT_SIZE_MIN)
+                temp = TEXT_SIZE_MIN;
+
+            TextSize = temp;
+            foreach (NoteList n in Tabs)
+                n.UpdateNotes();
         }
     }
 }

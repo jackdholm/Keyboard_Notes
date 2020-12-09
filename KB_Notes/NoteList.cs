@@ -82,6 +82,13 @@ namespace KB_Notes
             OnPropertyChanged("Notes");
             OnPropertyChanged("Text");
         }
+        public void UpdateNotes()
+        {
+            if (_notes.Count > 0)
+            {
+                ChangeNote(0, _notes[0].Text);
+            }
+        }
     }
 }
     

@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:KB_Notes"
         xmlns:ext="clr-namespace:KB_Notes.Extensions"
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:s="clr-namespace:System;assembly=System.Runtime"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
         x:Name="Main_Window"
-        Title="Keyboard Notes" Height="450" Width="800" MinWidth="800" MinHeight="450" FontSize="12">
+        Title="Keyboard Notes" Height="450" Width="800" MinWidth="800" MinHeight="450" FontSize="{Binding TextSize}">
     <Window.Resources>
         <Style x:Key="gridHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -18,13 +19,15 @@
             <Setter Property="ext:ListViewScroll.ScrollToSelection" Value="True"/>
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="BorderThickness" Value="0.5"/>
-            <Setter Property="Margin" Value="0.5"/>
             <Setter Property="Margin" Value="1"/>
+        </Style>
+        <Style x:Key="textStyle" TargetType="{x:Type ext:FormattedTextBlock}">
+            <Setter Property="FontSize" Value="{Binding TextSize}" />
         </Style>
     </Window.Resources>
 
     <Grid>
-        <TextBox AcceptsReturn="True" x:Name="textBox" Margin="140,10,5,0" Text="{Binding Path=CurrentNoteText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Height="65">
+        <TextBox FontSize="{Binding TextSize}" AcceptsReturn="True" x:Name="textBox" Margin="140,10,5,0" Text="{Binding Path=CurrentNoteText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Height="65">
             <TextBox.InputBindings>
                 <KeyBinding Gesture="SHIFT+Return" Command="{Binding NewNote}"/>
                 <KeyBinding Key="Esc" Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
@@ -46,6 +49,20 @@
                 <KeyBinding Key="L" Command="{Binding ScrollRight}"/>
                 <KeyBinding Key="k" Command="{Binding ScrollUp}"/>
                 <KeyBinding Key="J" Command="{Binding ScrollDown}"/>
+                <KeyBinding Key="T" Command="{Binding ChangeTextSize}">
+                    <KeyBinding.CommandParameter>
+                        <s:Boolean>
+                            True
+                        </s:Boolean>
+                    </KeyBinding.CommandParameter>
+                </KeyBinding>
+                <KeyBinding Gesture="Ctrl+T" Command="{Binding ChangeTextSize}">
+                    <KeyBinding.CommandParameter>
+                        <s:Boolean>
+                            False
+                        </s:Boolean>
+                    </KeyBinding.CommandParameter>
+                </KeyBinding>
                 <KeyBinding Gesture="Ctrl+Q" Command="{Binding OpenHelp}"/>
                 <KeyBinding Gesture="Ctrl+O" Command="{Binding Reverse}"/>
                 <KeyBinding Key="E" Command="{Binding EditNote}"/>
@@ -66,7 +83,8 @@
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ListView ItemsSource="{Binding Notes}" SelectedItem="{Binding Selected}" 
+                    <ListView FontSize="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                             Path=DataContext.TextSize}" ItemsSource="{Binding Notes}" SelectedItem="{Binding Selected}" 
                               SelectedIndex="{Binding RelativeSource={RelativeSource AncestorType=Window},
                              Path=DataContext.SelectedIndex}"  SelectionMode="Single"  ItemContainerStyle="{StaticResource itemStyle}" x:Name="listview" Margin="5,5,5,5" BorderThickness="1,1,1,1">
                         <ListView.InputBindings>
@@ -82,7 +100,13 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding Date}"/>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Date}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>

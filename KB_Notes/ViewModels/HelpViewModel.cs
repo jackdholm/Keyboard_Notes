@@ -9,7 +9,7 @@ namespace KB_Notes.ViewModels
     class HelpViewModel : ViewModelBase, IModalDialogViewModel
     {
         private IDialogService _dialogService;
-        private static string _text = "New Tab: Ctrl-N\nCreate Note Mode: Enter\nNavigation Mode: Escape\nTab Navigation: H/L\nNote Navigation: J/K\nDelete Note: Delete\nDelete Tab: Shift+Delete\nChange Order: Ctrl-O\nEdit Note: E\nWhen Creating/Editing notes:\nTitle Text: #T\nAdd Note: Shift+Enter\nShift+H/J/K/L: Navigation";
+        private static string _text = "New Tab: Ctrl-N\nCreate Note Mode: Enter\nNavigation Mode: Escape\nTab Navigation: H/L\nNote Navigation: J/K\nDelete Note: Delete\nDelete Tab: Shift+Delete\nChange Order: Ctrl-O\nEdit Note: E\nText Size: T / Ctrl-T\nWhen Creating/Editing notes:\nTitle Text: #T\nAdd Note: Shift+Enter\nShift+H/J/K/L: Navigation";
 
         public HelpViewModel(IDialogService dialogService)
         {
